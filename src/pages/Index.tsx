@@ -1,10 +1,15 @@
-import { BookOpen, Palette, GraduationCap, Instagram, ArrowDown } from "lucide-react";
+import { BookOpen, Palette, GraduationCap, Instagram, ArrowDown, Star } from "lucide-react";
 import NewsletterForm from "@/components/NewsletterForm";
 import ServiceCard from "@/components/ServiceCard";
 import Header from "@/components/Header";
+import BookPreview from "@/components/BookPreview";
 import maelPhoto from "@/assets/mael-photo.jpeg";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Index = () => {
+  const { ref: servicesRef, isVisible: servicesVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { ref: newsletterRef, isVisible: newsletterVisible } = useScrollAnimation({ threshold: 0.1 });
+
   const services = [
     {
       icon: BookOpen,
@@ -40,11 +45,11 @@ const Index = () => {
         
         {/* Subtle grid pattern */}
         <div 
-          className="absolute inset-0 opacity-[0.02]"
+          className="absolute inset-0 opacity-[0.015]"
           style={{
             backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
                               linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px'
+            backgroundSize: '80px 80px'
           }}
         />
 
@@ -54,8 +59,8 @@ const Index = () => {
             <div className="order-2 lg:order-1 text-center lg:text-left">
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 animate-fade-in">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                <span className="text-sm font-medium text-primary tracking-wide uppercase">
+                <Star className="w-3.5 h-3.5 text-primary fill-primary" />
+                <span className="text-sm font-medium text-primary tracking-wide">
                   Próximamente: Nuevo Libro
                 </span>
               </div>
@@ -80,16 +85,16 @@ const Index = () => {
                 className="grid grid-cols-3 gap-6 md:gap-10 max-w-lg mx-auto lg:mx-0 animate-slide-up"
                 style={{ animationDelay: "200ms" }}
               >
-                <div className="text-center lg:text-left">
-                  <p className="font-display text-4xl md:text-5xl lg:text-6xl text-primary leading-none">15+</p>
+                <div className="text-center lg:text-left group cursor-default">
+                  <p className="font-display text-4xl md:text-5xl lg:text-6xl text-primary leading-none group-hover:scale-110 transition-transform duration-300">15+</p>
                   <p className="text-muted-foreground text-xs md:text-sm mt-1 uppercase tracking-wider">Años</p>
                 </div>
-                <div className="text-center lg:text-left">
-                  <p className="font-display text-4xl md:text-5xl lg:text-6xl text-primary leading-none">3K+</p>
+                <div className="text-center lg:text-left group cursor-default">
+                  <p className="font-display text-4xl md:text-5xl lg:text-6xl text-primary leading-none group-hover:scale-110 transition-transform duration-300">3K+</p>
                   <p className="text-muted-foreground text-xs md:text-sm mt-1 uppercase tracking-wider">Tatuajes</p>
                 </div>
-                <div className="text-center lg:text-left">
-                  <p className="font-display text-4xl md:text-5xl lg:text-6xl text-primary leading-none">500+</p>
+                <div className="text-center lg:text-left group cursor-default">
+                  <p className="font-display text-4xl md:text-5xl lg:text-6xl text-primary leading-none group-hover:scale-110 transition-transform duration-300">500+</p>
                   <p className="text-muted-foreground text-xs md:text-sm mt-1 uppercase tracking-wider">Alumnos</p>
                 </div>
               </div>
@@ -97,9 +102,9 @@ const Index = () => {
 
             {/* Right Column - Image */}
             <div className="order-1 lg:order-2">
-              <div className="relative mx-auto max-w-sm lg:max-w-md animate-fade-in">
+              <div className="relative mx-auto max-w-sm lg:max-w-md animate-fade-in group">
                 {/* Glow effect */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 via-primary/10 to-primary/30 rounded-3xl blur-2xl opacity-40" />
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 via-primary/10 to-primary/30 rounded-3xl blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
                 
                 {/* Frame decoration */}
                 <div className="absolute -inset-[2px] bg-gradient-to-br from-primary/50 via-transparent to-primary/50 rounded-2xl" />
@@ -108,18 +113,18 @@ const Index = () => {
                   <img 
                     src={maelPhoto} 
                     alt="Mael - Tatuador profesional" 
-                    className="w-full h-auto"
+                    className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
                   />
                   
                   {/* Overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                   
                   {/* Name badge */}
                   <div className="absolute bottom-6 left-6 right-6">
                     <div className="flex items-center gap-4">
                       <div>
-                        <p className="font-display text-3xl md:text-4xl text-foreground">MAEL</p>
-                        <p className="text-primary text-sm tracking-widest uppercase">Tattoo Artist</p>
+                        <p className="font-display text-4xl md:text-5xl text-foreground tracking-wide">MAEL</p>
+                        <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium">Tattoo Artist</p>
                       </div>
                     </div>
                   </div>
@@ -142,7 +147,12 @@ const Index = () => {
       {/* Services Section */}
       <section id="services" className="py-24 md:py-32 border-t border-border">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div 
+            ref={servicesRef}
+            className={`text-center mb-16 transition-all duration-700 ${
+              servicesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
             <span className="text-primary text-sm font-medium tracking-widest uppercase mb-4 block">
               Lo que ofrezco
             </span>
@@ -161,12 +171,15 @@ const Index = () => {
                 icon={service.icon}
                 title={service.title}
                 description={service.description}
-                delay={index * 100}
+                delay={index * 150}
               />
             ))}
           </div>
         </div>
       </section>
+
+      {/* Book Preview Section */}
+      <BookPreview />
 
       {/* Newsletter Section */}
       <section id="newsletter" className="py-24 md:py-32 border-t border-border relative overflow-hidden">
@@ -175,7 +188,12 @@ const Index = () => {
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-lg mx-auto">
-            <div className="text-center mb-10">
+            <div 
+              ref={newsletterRef}
+              className={`text-center mb-10 transition-all duration-700 ${
+                newsletterVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
               <span className="text-primary text-sm font-medium tracking-widest uppercase mb-4 block">
                 Newsletter exclusiva
               </span>
@@ -193,18 +211,18 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-border">
+      <footer className="py-12 border-t border-border bg-[hsl(0_0%_3%)]">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="text-center md:text-left">
-              <p className="font-display text-2xl text-foreground mb-1">MAEL</p>
-              <p className="text-muted-foreground text-sm">Tattoo Studio</p>
+              <p className="font-display text-3xl text-foreground mb-1 tracking-wide">MAEL</p>
+              <p className="text-muted-foreground text-sm tracking-widest uppercase">Tattoo Studio</p>
             </div>
             
             <div className="flex items-center gap-8">
               <a 
                 href="#" 
-                className="text-muted-foreground hover:text-primary transition-colors p-2 hover:bg-primary/10 rounded-full"
+                className="text-muted-foreground hover:text-primary transition-all duration-300 p-2 hover:bg-primary/10 rounded-full hover:scale-110"
                 aria-label="Instagram"
               >
                 <Instagram className="w-6 h-6" />
@@ -224,7 +242,7 @@ const Index = () => {
             </div>
             
             <p className="text-sm text-muted-foreground">
-              © 2024 Mael Tattoo Studio. Todos los derechos reservados.
+              © 2024 Mael Tattoo Studio
             </p>
           </div>
         </div>
