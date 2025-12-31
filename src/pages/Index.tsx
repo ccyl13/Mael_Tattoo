@@ -1,4 +1,4 @@
-import { BookOpen, Palette, GraduationCap, Instagram, ArrowDown, Star } from "lucide-react";
+import { BookOpen, Palette, GraduationCap, Instagram, ArrowDown, Star, MapPin, MessageCircle } from "lucide-react";
 import NewsletterForm from "@/components/NewsletterForm";
 import ServiceCard from "@/components/ServiceCard";
 import Header from "@/components/Header";
@@ -211,33 +211,63 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-border bg-[hsl(0_0%_3%)]">
+      <footer className="py-16 border-t border-border bg-[hsl(0_0%_3%)]">
         <div className="container mx-auto px-4">
+          {/* Address Section */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-card/50 border border-border backdrop-blur-sm group hover:border-primary/30 transition-all duration-300">
+              <div className="p-2 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                <MapPin className="w-5 h-5 text-primary" />
+              </div>
+              <div className="text-left">
+                <p className="text-foreground font-medium">C/ Marqués de Casa Valdés 59</p>
+                <p className="text-muted-foreground text-sm">Gijón, Asturias</p>
+              </div>
+            </div>
+          </div>
+
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="text-center md:text-left">
               <p className="font-display text-3xl text-foreground mb-1 tracking-wide">MAEL</p>
               <p className="text-muted-foreground text-sm tracking-widest uppercase">Tattoo Studio</p>
             </div>
             
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-4">
+              {/* Instagram */}
               <a 
-                href="#" 
-                className="text-muted-foreground hover:text-primary transition-all duration-300 p-2 hover:bg-primary/10 rounded-full hover:scale-110"
+                href="https://www.instagram.com/maeltattoostudio/" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-all duration-300 p-3 hover:bg-primary/10 rounded-full hover:scale-110 hover:shadow-[0_0_20px_hsl(45_80%_55%/0.3)]"
                 aria-label="Instagram"
               >
                 <Instagram className="w-6 h-6" />
               </a>
+              
+              {/* WhatsApp */}
+              <a 
+                href="https://wa.me/34645973620?text=Hola%2C%20quer%C3%ADa%20pedir%20cita%20para%20una%20consulta."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-[#25D366] transition-all duration-300 p-3 hover:bg-[#25D366]/10 rounded-full hover:scale-110 hover:shadow-[0_0_20px_rgba(37,211,102,0.3)]"
+                aria-label="WhatsApp"
+              >
+                <MessageCircle className="w-6 h-6" />
+              </a>
+              
+              <span className="w-px h-6 bg-border mx-2" />
+              
               <a 
                 href="#" 
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Política de privacidad
+                Privacidad
               </a>
               <a 
                 href="#" 
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Aviso legal
+                Legal
               </a>
             </div>
             
