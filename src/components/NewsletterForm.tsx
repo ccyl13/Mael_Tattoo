@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/hooks/use-toast";
 import { Mail, Loader2, CheckCircle, Gift } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { supabase } from "@/integrations/supabase/client";
 
 const NewsletterForm = () => {
   const [email, setEmail] = useState("");
@@ -47,16 +48,30 @@ const NewsletterForm = () => {
 
     setIsLoading(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsLoading(false);
-    setIsSuccess(true);
-    
-    toast({
-      title: "¡Bienvenido!",
-      description: "Te has suscrito correctamente a la lista.",
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke("subscribe-newsletter", {
+        body: { email, name },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      setIsSuccess(true);
+      toast({
+        title: "¡Bienvenido!",
+        description: "Te has suscrito correctamente a la lista.",
+      });
+    } catch (error: any) {
+      console.error("Newsletter subscription error:", error);
+      toast({
+        title: "Error",
+        description: "No se pudo completar la suscripción. Inténtalo de nuevo.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (isSuccess) {
