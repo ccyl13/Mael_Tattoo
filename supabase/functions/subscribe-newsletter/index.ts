@@ -49,6 +49,7 @@ const handler = async (req: Request): Promise<Response> => {
         fields: {
           name: name,
         },
+        groups: ["175935661279282672"],
       }),
     });
 
